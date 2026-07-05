@@ -1,34 +1,222 @@
-/* 篩選選單樣式 */
-.filter-menu {
+/* 導入特製調色盤變數 */
+:root {
+    --bg-main: #003d5b;      /* 深海藍：大背景 */
+    --bg-card: #30638e;      /* 石板藍：區塊與卡片 */
+    --accent-gold: #edae49;  /* 蜂蜜金：標題與強調 */
+    --accent-red: #d1495b;   /* 辣椒紅：Hover互動 */
+    --accent-teal: #00798c;  /* 深孔雀綠：輔助邊框 */
+    --text-light: #f5f5f5;   /* 亮白：內文字 */
+    --text-muted: #a0b2c6;   /* 灰藍：次要字 */
+}
+
+/* 基礎重設 */
+* {
+    box-sizing: border-box;
+    scroll-behavior: smooth; /* 點導覽列時會平滑滾動 */
+}
+body {
+    font-family: "SF Mono", "Fira Code", monospace, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-main);
+    color: var(--text-light);
+}
+
+/* ==================== 15% 頂部固定導覽列 ==================== */
+.top-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 15vh; /* 精準佔用 15% 螢幕高度 */
+    background-color: rgba(0, 61, 91, 0.9); /* 半透明主色 */
+    backdrop-filter: blur(10px); /* 磨砂玻璃效果 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    z-index: 100;
+    border-bottom: 2px solid var(--accent-teal);
+}
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-gold);
+}
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-light);
+    margin-left: 30px;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+.nav-links a:hover {
+    color: var(--accent-gold);
+}
+
+/* ==================== 10% 左側固定社群欄 ==================== */
+.left-sidebar {
+    position: fixed;
+    top: 15vh; /* 從頂部導覽列下方開始算 */
+    left: 0;
+    width: 10vw; /* 精準佔用 10% 螢幕寬度 */
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end; /* 讓圖標靠下方聚集，符合 Brittany 風格 */
+    padding-bottom: 40px;
+    z-index: 90;
+}
+.sidebar-icons a {
+    display: block;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin: 25px 0;
+    transition: all 0.3s;
     text-align: center;
-    margin-bottom: 40px;
+}
+.sidebar-icons a:hover {
+    color: var(--accent-gold);
+    transform: translateY(-5px);
+}
+/* 經典直拉線特效 */
+.sidebar-line {
+    width: 2px;
+    height: 90px;
+    background-color: var(--accent-teal);
+    margin-top: 15px;
+}
+
+/* ==================== 主要內容包裹區 ==================== */
+.main-wrapper {
+    margin-top: 15vh;   /* 避開頂部 15% */
+    margin-left: 10vw;  /* 避開左側 10% */
+    padding: 40px 5%;
+}
+
+.content-section {
+    min-height: 70vh; /* 讓每個區塊有足夠的高度感 */
+    padding: 60px 0;
+    max-width: 1000px;
+}
+
+.section-title {
+    font-size: 2rem;
+    color: var(--accent-gold);
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--accent-teal);
+    padding-bottom: 10px;
+}
+
+/* Experience 卡片樣式 */
+.exp-card {
+    background-color: var(--bg-card);
+    padding: 25px;
+    border-radius: 6px;
+    border-left: 4px solid var(--accent-gold);
+}
+.exp-card h3 { margin: 0 0 10px 0; color: #fff; }
+.exp-card .date { color: var(--accent-gold); font-size: 0.9rem; margin-bottom: 15px; }
+
+/* ==================== 作品篩選與網格 (Work) ==================== */
+.filter-menu {
+    margin-bottom: 30px;
 }
 .filter-btn {
     background: none;
-    border: none;
-    font-size: 1rem;
-    padding: 5px 15px;
-    margin: 0 5px;
+    border: 1px solid var(--accent-gold);
+    color: var(--accent-gold);
+    padding: 8px 16px;
+    margin-right: 10px;
+    border-radius: 4px;
     cursor: pointer;
-    color: #999;
-    transition: color 0.3s, font-weight 0.3s;
+    font-family: inherit;
+    transition: all 0.3s;
 }
 .filter-btn:hover, .filter-btn.active {
-    color: #000;
+    background-color: var(--accent-gold);
+    color: var(--bg-main);
     font-weight: bold;
 }
 
-/* 隱藏未選中分類的過渡效果 */
-.gallery-item {
-    transition: transform 0.4s ease, opacity 0.4s ease;
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
 }
-.gallery-item.hide {
-    transform: scale(0.8);
-    opacity: 0;
-    position: absolute;
-    width: 0;
-    height: 0;
-    padding: 0;
-    margin: 0;
+.gallery-item {
+    position: relative;
+    border-radius: 6px;
     overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background-color: var(--bg-card);
+    cursor: pointer;
+}
+.gallery-item img, .gallery-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.play-icon {
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-size: 40px; color: rgba(255,255,255,0.7); pointer-events: none;
+}
+
+/* 預覽遮罩 */
+.preview-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 61, 91, 0.85);
+    color: var(--accent-gold);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+    font-weight: bold;
+}
+.gallery-item:hover .preview-overlay { opacity: 1; }
+.gallery-item.hide { display: none; }
+
+/* Contact 按鈕 */
+.contact-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    border: 2px solid var(--accent-red);
+    color: var(--accent-red);
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 20px;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+.contact-btn:hover {
+    background-color: var(--accent-red);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(209, 73, 91, 0.4);
+}
+
+/* ==================== 燈箱彈出視窗 ==================== */
+.lightbox {
+    display: none; position: fixed; z-index: 1000;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 21, 32, 0.95);
+    align-items: center; justify-content: center;
+}
+.lightbox-active { display: flex; }
+#lightbox-content img, #lightbox-content video {
+    max-width: 85vw; max-height: 85vh; border-radius: 4px;
+    border: 2px solid var(--accent-gold);
+}
+.close {
+    position: absolute; top: 30px; right: 40px;
+    color: var(--accent-gold); font-size: 40px; cursor: pointer;
+}
+
+/* 響應式手機板優化 */
+@media (max-width: 768px) {
+    .top-navbar { height: 10vh; }
+    .nav-links { display: none; } /* 手機板暫時隱藏複雜選單 */
+    .left-sidebar { display: none; } /* 手機板隱藏側邊欄避免擠壓 */
+    .main-wrapper { margin-top: 12vh; margin-left: 0; padding: 20px; }
 }
