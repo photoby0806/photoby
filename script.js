@@ -1,39 +1,99 @@
+// ==========================================
+// 🎨 我的作品清單
+// ==========================================
 const myWorks = [
-    {
-        title: "作品名稱 A",
-        cover: "painting1.png",
-        description: "這是作品的詳細介紹文字，可以放很長，寫關於創作的故事..."
+    { 
+        type: 'painting', 
+        src: 'painting1.png', 
+        label: 'View Painting' 
     },
-    {
-        title: "作品名稱 B",
-        cover: "video-thumb.jpg", // 影片的封面圖
-        description: "這是影片作品的介紹，說明這部短片的理念。"
+    { 
+        type: 'video',    
+        src: 'https://www.w3schools.com/html/mov_bbb.mp4', 
+        label: 'Play Video' 
     }
 ];
 
+// ==========================================
+// 🚀 自動網格渲染系統
+// ==========================================
 function renderGallery() {
     const grid = document.getElementById('gallery-grid');
-    grid.innerHTML = myWorks.map((work, index) => `
-        <div class="grid-item" onclick="openModal(${index})">
-            <img src="${work.cover}" alt="${work.title}">
-            <div class="overlay">${work.title}</div>
-        </div>
-    `).join('');
+    if (!grid) return;
+
+    grid.innerHTML = myWorks.map(work => {
+        if (work.type === 'painting') {
+            return `
+                <div class="gallery-item" data-category="painting" onclick="openLightbox('image', '${work.src}')">
+                    <img src="${work.src}" alt="Toby Lam Artwork">
+                    <div class="preview-overlay">🔍 ${work.label}</div>
+                </div>
+            `;
+        } else if (work.type === 'video') {
+            return `
+                <div class="gallery-item" data-category="video" onclick="openLightbox('video', '${work.src}')">
+                    <video src="${work.src}" muted loop onmouseover="this.play()" onmouseout="this.pause()"></video>
+                    <div class="play-icon">▶</div>
+                    <div class="preview-overlay">▶ ${work.label}</div>
+                </div>
+            `;
+        }
+    }).join('');
 }
 
-function openModal(index) {
-    const work = myWorks[index];
-    const modal = document.getElementById('artwork-modal');
-    document.getElementById('modal-body').innerHTML = `
-        <h2>${work.title}</h2>
-        <img src="${work.cover}" style="width:100%">
-        <p>${work.description}</p>
-    `;
-    modal.style.display = "flex";
+// ==========================================
+// 🔍 燈箱彈出功能
+// ==========================================
+function openLightbox(type, source) {
+    const lightbox = document.getElementById('lightbox');
+    const contentBox = document.getElementById('lightbox-content');
+    contentBox.innerHTML = '';
+    
+    if (type === 'image') {
+        const img = document.createElement('img');
+        img.src = source;
+        contentBox.appendChild(img);
+    } else if (type === 'video') {
+        const video = document.createElement('video');
+        video.src = source;
+        video.controls = true;
+        video.autoplay = true;
+        contentBox.appendChild(video);
+    }
+    lightbox.classList.add('lightbox-active');
 }
 
-function closeModal() {
-    document.getElementById('artwork-modal').style.display = "none";
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    const contentBox = document.getElementById('lightbox-content');
+    const video = contentBox.querySelector('video');
+    if (video) video.pause();
+    lightbox.classList.remove('lightbox-active');
 }
 
-document.addEventListener('DOMContentLoaded', renderGallery);
+// ==========================================
+// 🎛️ 分類篩選按鈕功能
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    renderGallery();
+
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const target = button.getAttribute('data-target');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            galleryItems.forEach(item => {
+                const category = item.getAttribute('data-category');
+                if (target === 'all' || category === target) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+});
