@@ -1,82 +1,15 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toby Lam | Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<!-- Work 區塊 -->
+<section id="work" class="content-section">
+    <h2 class="section-title">My Artwork</h2>
+    
+    <!-- 這裡放一個純粹的網格，不需要分類按鈕了 -->
+    <main class="gallery-container" id="gallery-grid"></main>
+</section>
 
-    <!-- 頂部固定導覽列 (佔高大約 15vh) -->
-    <nav class="top-navbar">
-        <div class="nav-logo">Toby Lam.</div>
-        <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#experience">Experience</a>
-            <a href="#work">Work</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
-
-    <!-- 左側固定社群欄 (佔寬大約 10vw) -->
-    <aside class="left-sidebar">
-        <div class="sidebar-icons">
-            <a href="https://www.instagram.com/tubitubi86/" target="_blank" title="Instagram">IG</a>
-            <a href="https://www.instagram.com/slowpace_studio/" target="_blank" title="Instagram">SP</a
-        </div>
-        <div class="sidebar-line"></div>
-    </aside>
-
-    <!-- 右側主要內容區 (會避開頂部與左側的固定範圍) -->
-    <div class="main-wrapper">
-        
-        <!-- About 區塊 -->
-        <section id="about" class="content-section">
-            <h2 class="section-title">About Me</h2>
-            <p>Hi, 我是 Toby Lam。這裡展示了我的藝術作品與影像創作。我喜歡透過色彩與動態視覺，探索故事的無限可能。</p>
-        </section>
-
-        <!-- Experience 區塊 (保留空間給你未來填寫) -->
-        <section id="experience" class="content-section">
-            <h2 class="section-title">Experience</h2>
-            <div class="exp-card">
-                <h3>獨立藝術創作者 / 影像導演</h3>
-                <p class="date">2024 - Present</p>
-                <p>負責個人品牌經營，策劃多場線上/線下視覺藝術展示，專注於畫作與數位影片媒材整合。</p>
-            </div>
-        </section>
-
-        <!-- Work 區塊 (內建我們之前做好的篩選器與燈箱網格) -->
-        <section id="work" class="content-section">
-            <h2 class="section-title">My Artwork</h2>
-            
-            <!-- 分類篩選按鈕 -->
-            <div class="filter-menu">
-                <button class="filter-btn active" data-target="all">All</button>
-                <button class="filter-btn" data-target="painting">Paintings</button>
-                <button class="filter-btn" data-target="video">Videos</button>
-            </div>
-
-            <!-- 作品展示網格 -->
-            <main class="gallery-container" id="gallery-grid"></main>
-        </section>
-
-        <!-- Contact 區塊 -->
-        <section id="contact" class="content-section">
-            <h2 class="section-title">Get In Touch</h2>
-            <p>目前開放各類藝術合作、影像接案與聯絡，歡迎來信或隨時透過社群與我聊聊！</p>
-            <a href="mailto:你的Email@example.com" class="contact-btn">Say Hello</a>
-        </section>
-
+<!-- 懸浮詳細資訊頁 (Lightbox) -->
+<div id="artwork-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div id="modal-body"></div>
     </div>
-
-    <!-- 燈箱結構 -->
-    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-        <span class="close">&times;</span>
-        <div id="lightbox-content"></div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+</div>
