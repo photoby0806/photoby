@@ -59,20 +59,7 @@
             </div>
 
             <!-- 作品展示網格 -->
-            <main class="gallery-container">
-                <!-- 作品 1 (畫作) -->
-                <div class="gallery-item" data-category="painting" onclick="openLightbox('image', 'painting1.png')">
-                    <img src="painting1.png" alt="畫作 1">
-                    <div class="preview-overlay">🔍 View Painting</div>
-                </div>
-                
-                <!-- 作品 2 (影片) -->
-                <div class="gallery-item" data-category="video" onclick="openLightbox('video', 'https://www.w3schools.com/html/mov_bbb.mp4')">
-                    <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop onmouseover="this.play()" onmouseout="this.pause()"></video>
-                    <div class="play-icon">▶</div>
-                    <div class="preview-overlay">▶ Play Video</div>
-                </div>
-            </main>
+            <main class="gallery-container" id="gallery-grid"></main>
         </section>
 
         <!-- Contact 區塊 -->
