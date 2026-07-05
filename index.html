@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的藝術作品集</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 關於我 & 聯絡方式 -->
+    <header class="about-section">
+        <h1>Hi, 我是 [你的名字]</h1>
+        <p>歡迎來到我的作品集！我是一名熱愛創作的藝術家，專注於平面繪畫與影像創作。這裡展示了我的部分心血結晶。</p>
+        <div class="social-links">
+            <a href="你的_IG_網址" target="_blank">Instagram</a>
+            <a href="你的_LinkedIn_網址" target="_blank">LinkedIn</a>
+        </div>
+    </header>
+
+    <!-- 作品展示區 -->
+    <main class="gallery-container">
+        <!-- 畫作範例 -->
+        <div class="gallery-item" onclick="openLightbox('image', 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800')">
+            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400" alt="畫作 1">
+        </div>
+        
+        <!-- 影片範例 (使用 mp4 網址) -->
+        <div class="gallery-item video-item" onclick="openLightbox('video', 'https://www.w3schools.com/html/mov_bbb.mp4')">
+            <!-- 封面預覽，點擊後在燈箱播放 -->
+            <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop onmouseover="this.play()" onmouseout="this.pause()"></video>
+            <div class="play-icon">▶</div>
+        </div>
+    </main>
+
+    <!-- 燈箱 (Lightbox) 結構 -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close">&times;</span>
+        <div id="lightbox-content"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
